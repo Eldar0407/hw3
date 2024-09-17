@@ -4,6 +4,15 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 start = ReplyKeyboardMarkup(resize_keyboard=True,
                             row_width=2)
 
+sizes = ReplyKeyboardMarkup(resize_keyboard=True,
+                            row_width=3).add(
+    KeyboardButton(text='XL'),
+    KeyboardButton(text='L'),
+    KeyboardButton(text='M')
+)
+
+
+
 quiz_buttons = KeyboardButton('/quiz')
 game_buttons = KeyboardButton('/game')
 game2_buttons = KeyboardButton('/game2')
@@ -13,7 +22,10 @@ random_game_buttons = KeyboardButton('/random_game')
 start.add(quiz_buttons,game_buttons, game2_buttons,
           random_game_buttons)
 
-# ===============================================================
+
+
+# =================================
+# ==============================
 
 start_test = ReplyKeyboardMarkup(
     resize_keyboard=True,

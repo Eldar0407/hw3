@@ -1,5 +1,4 @@
 from aiogram import types, Dispatcher
-import os
 from buttons import start
 from config import bot
 
