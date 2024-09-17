@@ -19,6 +19,12 @@ game2_buttons = KeyboardButton('/game2')
 random_game_buttons = KeyboardButton('/random_game')
 
 
+cancel_button = ReplyKeyboardMarkup(resize_keyboard=True).add(KeyboardButton('Отмена'))
+
+submit_button = ReplyKeyboardMarkup(resize_keyboard=True,
+                                    row_width=2).add(KeyboardButton('Да'), KeyboardButton('Нет'))
+
+
 start.add(quiz_buttons,game_buttons, game2_buttons,
           random_game_buttons)
 

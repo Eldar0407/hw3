@@ -4,7 +4,7 @@ from aiogram.dispatcher.filters import Text
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from buttons import sizes
 
-class FSM_store(StatesGroup):
+class fsm_store(StatesGroup):
     product_name = State()
     size = State()
     category = State()
@@ -14,14 +14,14 @@ class FSM_store(StatesGroup):
 size = ['XL','L', 'M']
 async def start_fsm_reg(message: types.Message):
     await message.answer('Введите название товара: ')
-    await FSM_store.product_name.set()
+    await fsm_store.product_name.set()
 
 async def load_product_name(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
         data['product_name'] = message.text
 
     await message.answer('Введите размер: ',reply_markup= sizes)
-    await FSM_store.next()
+    await fsm_store.next()
 
 async def load_size(message: types.Message, state: FSMContext):
     if message.text in size:
@@ -29,7 +29,7 @@ async def load_size(message: types.Message, state: FSMContext):
             data['size'] = message.text
 
         await message.answer('Введите категорию: ', reply_markup=types.ReplyKeyboardRemove())
-        await FSM_store.next()
+        await fsm_store.next()
     else:
         await message.answer('Нажимайте на кнопки!')
 async def load_category(message: types.Message, state: FSMContext):
@@ -37,7 +37,7 @@ async def load_category(message: types.Message, state: FSMContext):
         data['category'] = message.text
 
      await message.answer('Введите цену: ')
-     await FSM_store.next()
+     await fsm_store.next()
 
 async def load_cost(message: types.Message, state: FSMContext):
     if message.text.isdigit():
@@ -45,7 +45,7 @@ async def load_cost(message: types.Message, state: FSMContext):
             data['cost'] = message.text
 
         await message.answer('Отправьте фото: ')
-        await FSM_store.next()
+        await fsm_store.next()
     else:
         await message.answer('Вводите числа!')
 
@@ -65,8 +65,8 @@ async def load_photo(message: types.Message, state: FSMContext):
     await state.finish()
 def register_fsm_reg(dp: Dispatcher):
     dp.register_message_handler(start_fsm_reg, commands=['store'])
-    dp.register_message_handler(load_product_name, state=FSM_store.product_name)
-    dp.register_message_handler(load_size, state=FSM_store.size)
-    dp.register_message_handler(load_category, state=FSM_store.category)
-    dp.register_message_handler(load_cost, state=FSM_store.cost)
-    dp.register_message_handler(load_photo, state=FSM_store.photo, content_types=['photo'])
+    dp.register_message_handler(load_product_name, state=fsm_store.product_name)
+    dp.register_message_handler(load_size, state=fsm_store.size)
+    dp.register_message_handler(load_category, state=fsm_store.category)
+    dp.register_message_handler(load_cost, state=fsm_store.cost)
+    dp.register_message_handler(load_photo, state=fsm_store.photo, content_types=['photo'])
